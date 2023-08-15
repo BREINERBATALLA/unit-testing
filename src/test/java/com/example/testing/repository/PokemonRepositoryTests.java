@@ -21,12 +21,31 @@ public class PokemonRepositoryTests {
     @DisplayName("Test save method")
     public void savePokemonTest() {
         //Arrange
-        Pokemon pokemon = LoadData.getPokemon();
+        Pokemon pokemon = LoadData.createSamplePokemon();
 
         //Act
         Pokemon result = pokemonRepository.save(pokemon);
 
         //Assert
+        Assertions.assertNotNull(result);
+    }
+
+    @Test
+    public void itShouldCheckIfPokemonDoesNotExists() {
+        Long id = 2L;
+
+        Pokemon result = pokemonRepository.findById(id).orElse(null);
+
+        Assertions.assertNull(result);
+    }
+
+    @Test
+    public void itShouldCheckIfPokemonExists() {
+        Pokemon pokemon = LoadData.createSamplePokemon();
+
+        Pokemon pokemonSaved = pokemonRepository.save(pokemon);
+        Pokemon result = pokemonRepository.findById(pokemonSaved.getId()).orElse(null);
+
         Assertions.assertNotNull(result);
     }
 

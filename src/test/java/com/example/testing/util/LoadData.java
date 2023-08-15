@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class LoadData {
 
-    public static Pokemon getPokemon() {
+    public static Pokemon createSamplePokemon() {
         return Pokemon.builder()
                 .id(1L)
                 .level(10)
@@ -14,7 +14,7 @@ public abstract class LoadData {
                 .build();
     }
 
-    public static List<Pokemon> getPokemons() {
+    public static List<Pokemon> createSampleListPokemons() {
         return List.of(
                 Pokemon.builder().id(1L).name("Brei1").level(5).build(),
                 Pokemon.builder().id(2L).name("Brei2").level(10).build()
