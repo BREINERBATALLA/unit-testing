@@ -1,9 +1,13 @@
 package com.example.testing.service.impl;
 
+import com.example.testing.dto.PokemonResponseDto;
 import com.example.testing.model.Pokemon;
 import com.example.testing.repository.PokemonRepository;
 import com.example.testing.service.IPokemonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,4 +45,21 @@ public class PokemonServiceImpl implements IPokemonService {
     public List<Pokemon> findAll() {
         return pokemonRepository.findAll();
     }
+
+    public PokemonResponseDto findAllWithPagination(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Pokemon> pokemons = pokemonRepository.findAll(pageable);
+
+        PokemonResponseDto pokemonResponseDto = PokemonResponseDto.builder()
+                .content(pokemons.getContent())
+                .pageNumber(pokemons.getNumber())
+                .pageSize(pokemons.getSize())
+                .totalElements(pokemons.getTotalElements())
+                .totalPages(pokemons.getTotalPages())
+                .isLast(pokemons.isLast())
+                .build();
+
+        return pokemonResponseDto;
+    }
+
 }

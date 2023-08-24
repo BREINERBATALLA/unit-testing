@@ -8,7 +8,6 @@ public abstract class LoadData {
 
     public static Pokemon createSamplePokemon() {
         return Pokemon.builder()
-                .id(1L)
                 .level(10)
                 .name("Brei")
                 .build();
